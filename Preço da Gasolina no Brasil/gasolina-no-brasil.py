@@ -77,12 +77,29 @@ media_revenda2000 = gasolina[gasolina['DATA FINAL'].dt.year < 2009].groupby(['ES
 
 media_revenda2000['ESTADO'] = media_revenda2000['ESTADO'].map(mapa_estados)
 
+plt.bar(media_revenda2000['ESTADO'], media_revenda2000['PREÇO MÉDIO REVENDA'])
+
+plt.title('Média do Preço de Revenda da Gasolina nos Estados na Década de 2000')
+plt.xlabel('Estados')
+plt.ylabel('Preço Médio de Revenda')
 
 # %%
 # Média do Preço de Revenda da Gasolina nos Estados na Década de 2010
 media_revenda2010 = gasolina[gasolina['DATA FINAL'].dt.year >= 2010].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False).head(10).to_frame().reset_index()
 
 media_revenda2010['ESTADO'] = media_revenda2010['ESTADO'].map(mapa_estados)
+
+plt.bar(media_revenda2010['ESTADO'], media_revenda2010['PREÇO MÉDIO REVENDA'])
+
+plt.title('Média do Preço de Revenda da Gasolina nos Estados na Década de 2010')
+plt.xlabel('Estados')
+plt.ylabel('Preço Médio de Revenda')
+
+
+
+# Os estados onde a gasolina é mais baratas
+
+
 
 # %%
 # Maior valor do preço médio de revenda
