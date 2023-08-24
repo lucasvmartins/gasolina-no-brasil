@@ -56,13 +56,33 @@ print('A Média do Preço Médio de Revenda da Gasolina na década de 2010: R${:
 print('A Média do Preço Máximo de Revenda da Gasolina na década de 2010: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010)]['PREÇO MÁXIMO REVENDA'].mean()))
 
 # %%
+# Criando um dicionário de cada estado com suas respectivas siglas
+mapa_estados = {
+    'ACRE': 'AC', 'ALAGOAS': 'AL', 'AMAPA': 'AP', 'AMAZONAS': 'AM',
+    'BAHIA': 'BA', 'CEARA': 'CE', 'DISTRITO FEDERAL': 'DF',
+    'ESPIRITO SANTO': 'ES', 'GOIAS': 'GO', 'MARANHAO': 'MA',
+    'MATO GROSSO': 'MT', 'MATO GROSSO DO SUL': 'MS',
+    'MINAS GERAIS': 'MG', 'PARA': 'PA', 'PARAIBA': 'PB',
+    'PARANA': 'PR', 'PERNAMBUCO': 'PE', 'PIAUI': 'PI',
+    'RIO DE JANEIRO': 'RJ', 'RIO GRANDE DO NORTE': 'RN',
+    'RIO GRANDE DO SUL': 'RS', 'RONDONIA': 'RO', 'RORAIMA': 'RR',
+    'SANTA CATARINA': 'SC', 'SAO PAULO': 'SP', 'SERGIPE': 'SE',
+    'TOCANTINS': 'TO'
+}
+
+
+# %%
 # Média do Preço de Revenda da Gasolina nos Estados na Década de 2000
-media_revenda2000 = gasolina[gasolina['DATA FINAL'].dt.year < 2009].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
+media_revenda2000 = gasolina[gasolina['DATA FINAL'].dt.year < 2009].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False).head(10).to_frame().reset_index()
+
+media_revenda2000['ESTADO'] = media_revenda2000['ESTADO'].map(mapa_estados)
+
 
 # %%
 # Média do Preço de Revenda da Gasolina nos Estados na Década de 2010
-media_revenda2010 = gasolina[gasolina['DATA FINAL'].dt.year >= 2010].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
+media_revenda2010 = gasolina[gasolina['DATA FINAL'].dt.year >= 2010].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False).head(10).to_frame().reset_index()
 
+media_revenda2010['ESTADO'] = media_revenda2010['ESTADO'].map(mapa_estados)
 
 # %%
 # Maior valor do preço médio de revenda
