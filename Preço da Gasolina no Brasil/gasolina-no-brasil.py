@@ -1,4 +1,4 @@
-#################### Preço da Gasolina no Brasil ####################
+#################### Preço da Gasolina no Brasil (2004-2021) ####################
 
 # %%
 #################### Importando Bibliotecas ####################
@@ -57,13 +57,18 @@ print('A Média do Preço Máximo de Revenda da Gasolina na década de 2010: R${
 
 # %%
 # Média do Preço de Revenda da Gasolina nos Estados na Década de 2000
-gasolina[gasolina['DATA FINAL'].dt.year < 2009].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
+media_revenda2000 = gasolina[gasolina['DATA FINAL'].dt.year < 2009].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
 
 # %%
 # Média do Preço de Revenda da Gasolina nos Estados na Década de 2010
-gasolina[gasolina['DATA FINAL'].dt.year >= 2010].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
+media_revenda2010 = gasolina[gasolina['DATA FINAL'].dt.year >= 2010].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
+
 
 # %%
-# Quando e onde o preço máximo da gasolina ultrapassou o valor dos 5 reais
-acima5 = gasolina[['DATA INICIAL', 'REGIÃO', 'ESTADO', 'NÚMERO DE POSTOS PESQUISADOS', 'PREÇO MÉDIO REVENDA', 'PREÇO MÁXIMO REVENDA', 'PREÇO MÍNIMO REVENDA']][gasolina['PREÇO MÁXIMO REVENDA'] >= 5]
+# Maior valor do preço médio de revenda
+max_revenda = gasolina[['ESTADO', 'REGIÃO', 'DATA INICIAL', 'DATA FINAL', 'PREÇO MÉDIO REVENDA']].sort_values(by='PREÇO MÉDIO REVENDA', ascending=False).iloc[0]
 
+
+# %%
+# Preço médio de revenda nas regiões na década de 2010
+regioes = gasolina[(gasolina['DATA INICIAL'].dt.year >= 2012) & (gasolina['DATA FINAL'].dt.year < 2020)].groupby('REGIÃO')['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False)
