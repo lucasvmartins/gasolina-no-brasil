@@ -80,8 +80,8 @@ maiormedia_revenda2000['ESTADO'] = maiormedia_revenda2000['ESTADO'].map(mapa_est
 plt.bar(maiormedia_revenda2000['ESTADO'], maiormedia_revenda2000['PREÇO MÉDIO REVENDA'])
 
 plt.ylim(2.5, 2.9)
-plt.xlabel('Estados')
-plt.ylabel('Preço Médio de Revenda')
+plt.xlabel('Estados do Brasil')
+plt.ylabel('Preço Médio de Revenda (R$)')
 plt.title('Maiores Médias do Preço de Revenda da Gasolina nos Estados na Década de 2000')
 
 
@@ -94,8 +94,8 @@ maiormedia_revenda2010['ESTADO'] = maiormedia_revenda2010['ESTADO'].map(mapa_est
 plt.bar(maiormedia_revenda2010['ESTADO'], maiormedia_revenda2010['PREÇO MÉDIO REVENDA'])
 
 plt.ylim(3.5, 4)
-plt.xlabel('Estados')
-plt.ylabel('Preço Médio de Revenda')
+plt.xlabel('Estados do Brasil')
+plt.ylabel('Preço médio de revenda (R$)')
 plt.title('Maiores Médias do Preço de Revenda da Gasolina nos Estados na Década de 2010')
 
 
@@ -108,8 +108,8 @@ menormedia_revenda2000['ESTADO'] = menormedia_revenda2000['ESTADO'].map(mapa_est
 plt.bar(menormedia_revenda2000['ESTADO'], menormedia_revenda2000['PREÇO MÉDIO REVENDA'])
 
 plt.ylim(2.3, 2.55)
-plt.xlabel('Estados')
-plt.ylabel('Preço Médio de Revenda')
+plt.xlabel('Estados do Brasil')
+plt.ylabel('Preço médio de revenda (R$)')
 plt.title('Menores Médias do Preço de Revenda da Gasolina nos Estados na Década de 2000')
 
 
@@ -122,8 +122,8 @@ menormedia_revenda2010['ESTADO'] = menormedia_revenda2010['ESTADO'].map(mapa_est
 plt.bar(menormedia_revenda2010['ESTADO'], menormedia_revenda2010['PREÇO MÉDIO REVENDA'])
 
 plt.ylim(3.25, 3.5)
-plt.xlabel('Estados')
-plt.ylabel('Preço Médio de Revenda')
+plt.xlabel('Estados do Brasil')
+plt.ylabel('Preço médio de revenda (R$)')
 plt.title('Menores Médias do Preço de Revenda da Gasolina nos Estados na Década de 2010')
 
 
@@ -140,11 +140,18 @@ regioes = gasolina[(gasolina['DATA INICIAL'].dt.year >= 2012) & (gasolina['DATA 
 plt.bar(regioes['REGIÃO'], regioes['PREÇO MÉDIO REVENDA'])
 
 plt.ylim(3.2, 3.8)
-plt.xlabel('Regiões')
-plt.ylabel('Preço Médio de Revenda')
-plt.title('Preço médio de revenda nas regiões na década de 2010')
+plt.xlabel('Regiões do Brasil')
+plt.ylabel('Preço médio de revenda (R$)')
+plt.title('Preço Médio de Revenda nas Regiões na Década de 2010')
 
 # %%
-# Preço Médio da Gasolina no Brasil na década de 2010 (Gráfico de Linha)
+# Preço Médio da Gasolina no Brasil na década de 2010
 
- 
+brasil = gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010) & (gasolina['DATA FINAL'].dt.year < 2020)].groupby(pd.Grouper(key='DATA FINAL', freq='M'))['PREÇO MÉDIO REVENDA'].mean()
+
+plt.plot(brasil)
+plt.title('Preço Médio Mensal da Gasolina em Todo Brasil na Década de 2010')
+plt.xlabel('Anos')
+plt.ylabel('Valor da gasolina (R$)')
+
+# %%
