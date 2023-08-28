@@ -3,7 +3,6 @@
 # %%
 #################### Importando Bibliotecas ####################
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -33,6 +32,7 @@ df.info()
 # Verificando os tipos de produtos que temos na base de dados
 df['PRODUTO'].value_counts()
 
+
 # %%
 #################### Filtrando os Dados ####################
 gasolina = df[df['PRODUTO'] == 'GASOLINA COMUM']
@@ -43,24 +43,27 @@ gasolina['PRODUTO'].value_counts()
 #################### Análise dos Preços na Década de 2000 ####################
 
 # A Média do Preço Médio de Revenda da Gasolina na década de 2000
-print('A Média do Preço Médio de Revenda da Gasolina na década de 2000: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year < 2009)]['PREÇO MÉDIO REVENDA'].mean()))
+print('A Média do Preço Médio de Revenda da Gasolina na década de 2000: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year <= 2009)]['PREÇO MÉDIO REVENDA'].mean()))
 
 # %%
 # A Média do Preço Máximo de Revenda da Gasolina na década de 2000
-print('A Média do Preço Máximo de Revenda da Gasolina na década de 2000: R$ {:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year < 2009)]['PREÇO MÁXIMO REVENDA'].mean()))
+print('A Média do Preço Máximo de Revenda da Gasolina na década de 2000: R$ {:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year <= 2009)]['PREÇO MÁXIMO REVENDA'].mean()))
+
 
 # %%
 #################### Análise dos Preços na Década de 2010 ####################
 
 # A Média do Preço Médio de Revenda da Gasolina na década de 2010
-print('A Média do Preço Médio de Revenda da Gasolina na década de 2010: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010)]['PREÇO MÉDIO REVENDA'].mean()))
+print('A Média do Preço Médio de Revenda da Gasolina na década de 2010: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010) & (gasolina['DATA INICIAL'].dt.year < 2020)]['PREÇO MÉDIO REVENDA'].mean()))
 
 # %%
 # A Média do Preço Máximo de Revenda da Gasolina na década de 2010
-print('A Média do Preço Máximo de Revenda da Gasolina na década de 2010: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010)]['PREÇO MÁXIMO REVENDA'].mean()))
+print('A Média do Preço Máximo de Revenda da Gasolina na década de 2010: R${:.2f}' .format(gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010) & (gasolina['DATA INICIAL'].dt.year < 2020)]['PREÇO MÁXIMO REVENDA'].mean()))
 
 
 # %%
+#################### Agrupamento por Estados ####################
+
 # Criando um dicionário de cada estado com suas respectivas siglas
 mapa_estados = {
     'ACRE': 'AC', 'ALAGOAS': 'AL', 'AMAPA': 'AP', 'AMAZONAS': 'AM',
@@ -76,8 +79,6 @@ mapa_estados = {
 }
 
 # %%
-#################### Agrupamento por Estados ####################
-
 # Maiores Médias do Preço de Revenda da Gasolina nos Estados na Década de 2000
 maiormedia_revenda2000 = gasolina[gasolina['DATA FINAL'].dt.year < 2010].groupby(['ESTADO'])['PREÇO MÉDIO REVENDA'].mean().sort_values(ascending=False).head(10).to_frame().reset_index()
 
@@ -141,6 +142,7 @@ max_revenda = gasolina[['ESTADO', 'REGIÃO', 'DATA INICIAL', 'DATA FINAL', 'PRE�
 
 print(max_revenda)
 
+
 # %%
 #################### Análise por Regiões ####################
 
@@ -154,6 +156,7 @@ plt.xlabel('Regiões do Brasil')
 plt.ylabel('Preço médio de revenda (R$)')
 plt.title('Preço Médio de Revenda nas Regiões na Década de 2010')
 
+
 # %%
 #################### Preço Médio da Gasolina no Brasil ####################
 
@@ -161,6 +164,6 @@ plt.title('Preço Médio de Revenda nas Regiões na Década de 2010')
 brasil = gasolina[(gasolina['DATA INICIAL'].dt.year >= 2010) & (gasolina['DATA FINAL'].dt.year < 2020)].groupby(pd.Grouper(key='DATA FINAL', freq='M'))['PREÇO MÉDIO REVENDA'].mean()
 
 plt.plot(brasil)
-plt.title('Preço Médio Mensal da Gasolina em Todo Brasil na Década de 2010')
 plt.xlabel('Anos')
 plt.ylabel('Valor da gasolina (R$)')
+plt.title('Preço Médio Mensal da Gasolina em Todo Brasil na Década de 2010')
