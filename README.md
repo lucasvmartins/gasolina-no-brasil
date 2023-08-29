@@ -1,5 +1,7 @@
 # Preço da Gasolina no Brasil de 2004 - 2020
 
+Link para Download do _Dataset:_ https://www.kaggle.com/datasets/matheusfreitag/gas-prices-in-brazil
+
 Este é um código Python que demonstra a análise do preço da gasolina no Brasil entre os anos de 2004 e 2021. O código utiliza a biblioteca Pandas para manipulação de dados e a biblioteca Matplotlib para visualizações gráficas. Considere no projeto em que, toda vez que falado na década de 2000 ela é iniciada na análise no ano de 2004.
 ##
 O código está dividido em várias seções, cada uma realizando uma etapa específica da análise:
