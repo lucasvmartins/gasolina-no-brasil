@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 
 # %%
 #################### Carregando o Dataset ####################
+# Link para download do Dataset: https://www.kaggle.com/datasets/matheusfreitag/gas-prices-in-brazil
+
 df = pd.read_csv('Dataset/gasolina.csv')
 
 print(df.info())
